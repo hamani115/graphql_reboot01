@@ -33,7 +33,10 @@ body {
     margin: 0;
     font-family: system-ui, Segoe UI, Roboto, Arial;
     color: var(--text);
-    background-color: linear-gradient(180deg, var(--bg), var(--bg2));
+    background:
+        radial-gradient(900px 400px at 20% 0%, rgba(96,165,250,.12), transparent 60%),
+        radial-gradient(700px 350px at 85% 25%, rgba(52,211,153,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
 }
 
 /* Main */

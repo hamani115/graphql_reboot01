@@ -1,8 +1,6 @@
-// Configuration
 const CONFIG = {
     API_URL: 'https://learn.reboot01.com/api/graphql-engine/v1/graphql',
     AUTH_URL: 'https://learn.reboot01.com/api/auth/signin',
-    // Replace ((DOMAIN)) with your actual domain when deploying
 };
 
 // Update CONFIG if needed from environment

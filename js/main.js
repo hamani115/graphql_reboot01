@@ -1,5 +1,5 @@
-// Main application entry point
 document.addEventListener('DOMContentLoaded', () => {
+    // localStorage.clear();
     if (Auth.isAuthenticated()) {
         UI.showProfilePage();
     } else {

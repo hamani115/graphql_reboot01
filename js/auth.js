@@ -1,4 +1,3 @@
-// Authentication module
 const Auth = {
     token: localStorage.getItem('jwtToken') || null,
     userId: localStorage.getItem('userId') || null,

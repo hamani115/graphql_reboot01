@@ -1,5 +1,4 @@
 const GraphQL = {
-    // Query user information
     async getUserInfo() {
         const query = `
             {
@@ -11,7 +10,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     async getUserProfile() {
         const query = `
             {
@@ -34,14 +32,12 @@ const GraphQL = {
                         amount
                         createdAt
                     }
-                    profile
                     attrs
                 }
             }
         `
         return this.query(query);
     },
-
     async getLatestActivity() {
         const query = `
             {
@@ -62,7 +58,6 @@ const GraphQL = {
         `
         return this.query(query);
     },
-
     // Query transactions by project for XP data //!(KEEP)
     //? Needs Renaming maybe since you are using it for two different plots 
     async getUserTransactionsByProjects() {
@@ -92,7 +87,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     // Query progress (grades)
     async getUserProgress() {
         const query = `
@@ -117,7 +111,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     // Query audit [ass/fail
     // How much I passed and failed other users?
     //? Try to redo where I get the AuditRatio same as Reboot
@@ -142,7 +135,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     // Query audit ratio
     async getUserAuditsRatio() {
         const query = `
@@ -157,7 +149,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     // Query Total Audit Done by User //!(KEEP)
     async getTotalAuditsCount() {
         const query = `
@@ -174,7 +165,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     // Query skills/results
     //? What the hell is even this do, I get Total Results = 2?????? lol it should "project" and not "piscine"
     async getResults() {
@@ -201,7 +191,6 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
     // Query for Total XP amount //!(KEEP)
     async getXPSum() {
         const query = `
@@ -221,11 +210,9 @@ const GraphQL = {
         `;
         return this.query(query);
     },
-
-    // Generic query function
+    // query function
     async query(query) {
         try {
-            // Debug: log auth token structure before request
             try {
                 console.log('GraphQL request auth token (raw):', Auth.token);
                 if (Auth.token) console.log('Token parts:', Auth.token.split('.').length);
@@ -233,7 +220,6 @@ const GraphQL = {
                 console.log('Failed to inspect token parts', e);
             }
 
-            // Build headers and log for debugging
             let headers = {};
             try {
                 headers = Auth.getAuthHeader();
@@ -266,7 +252,7 @@ const GraphQL = {
             }
 
             if (data && data.data) return data.data;
-            
+
             return { raw: text };
         } catch (error) {
             console.error('GraphQL Query Error:', error);

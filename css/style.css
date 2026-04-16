@@ -1,0 +1,228 @@
+:root {
+    --bg: #070b16;
+    --bg2: #0b1221;
+    --card1: #0b1327;
+    --card2: #0a1021;
+    /* -------------- */
+    --text: #e5e7ec;
+    --subtext: #94a3b9;
+    --border: rgba(148, 163, 184, 0.224);
+    /* -------------- */
+    --primary: #60a5fa;
+    --success: #34d399;
+    --danger: #fb7185;
+    --shadow: rgba(0, 0, 0, .35);
+    /* -------------- */
+    --chart-bg: rgba(255, 255, 255, .03);
+    --chart-axis: rgba(226, 232, 240, .55);
+    --chart-fg: rgba(226, 232, 240, .92);
+    --chart-line: var(--primary);
+    --chart-bar: var(--success);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, Segoe UI, Roboto, Arial;
+    color: var(--text);
+    background-color: linear-gradient(180deg, var(--bg), var(--bg2));
+}
+
+/* Main */
+.app {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.subtext {
+    color: var(--subtext);
+}
+
+/* Flexbox but grid style */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: stretch;
+}
+
+.card {
+    flex: 1 1 320px;
+    background: linear-gradient(180deg, var(--card1), var(--card2));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 12px 30px var(--shadow);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px) scale(1.01);
+    border-color: rgba(96, 165, 250, .45);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .50);
+}
+
+.card-full {
+    flex-basis: 100%;
+}
+
+.label-val {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.label-val:last-child {
+    border-bottom: 0;
+}
+
+.label-val .label {
+    color: var(--subtext);
+}
+
+.label-val .val {
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Forms & Buttons */
+button {
+    background: rgba(96, 165, 250, .18);
+    color: var(--text);
+    border: 1px solid rgba(96, 165, 250, .35);
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform .12s ease, filter .12s ease;
+}
+
+button:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0px);
+}
+
+input,
+select {
+    width: 100%;
+    background: rgba(2, 6, 23, .55);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 10px 12px;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: rgba(96, 165, 250, .55);
+    box-shadow: 0 0 0 4px rgba(96, 165, 250, .12);
+}
+
+/* Login */
+.auth {
+    min-height: calc(100vh - 36px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    max-width: 420px;
+    width: 100%;
+}
+
+.field {
+    margin-top: 12px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--subtext);
+    font-size: 13px;
+}
+
+.error {
+    color: var(--danger);
+    margin-top: 10px;
+}
+
+/* Chart */
+.chart-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.control {
+    min-width: 170px;
+}
+
+.control label {
+    display: block;
+    font-size: 12px;
+    color: var(--subtext);
+    margin-bottom: 6px;
+}
+
+/* SVG */
+.chart svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Mobile View */
+@media (max-width: 720px) {
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .label-val .val {
+        text-align: left;
+    }
+}

@@ -2,7 +2,7 @@ const Auth = {
     token: localStorage.getItem('jwtToken') || null,
     userId: localStorage.getItem('userId') || null,
 
-    // Decode JWT to extract payload safely
+    // Decode JWT to extract payload
     decodeToken(token) {
         if (!token) return null;
         const parts = token.split('.');
@@ -15,8 +15,7 @@ const Auth = {
             return null;
         }
     },
-
-    // Login with credentials (robust parsing of signin responses)
+    // Login
     async login(credentials) {
         try {
             const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
@@ -30,14 +29,12 @@ const Auth = {
 
             const raw = await response.text();
 
-            // Try to parse JSON first, otherwise use raw text
+            // Try to parse JSON or raw data
             let parsed = null;
             try { parsed = JSON.parse(raw); } catch (e) { parsed = null; }
 
-            // Normalize token candidates from different possible response shapes
             let tokenCandidates = null;
             if (parsed !== null) {
-                // If server returned a bare JSON string: "eyJ..." -> parsed is a string
                 if (typeof parsed === 'string') {
                     tokenCandidates = parsed;
                 } else if (typeof parsed === 'object') {
@@ -58,7 +55,6 @@ const Auth = {
 
             let token = String(tokenCandidates).trim();
 
-            // If token is a quoted JSON string (e.g. '"eyJ..."'), try parsing
             if ((token.startsWith('"') && token.endsWith('"')) || (token.startsWith("'") && token.endsWith("'"))) {
                 try {
                     token = JSON.parse(token);
@@ -67,14 +63,13 @@ const Auth = {
                 }
             }
 
-            // Basic validation of JWT structure
             if (token.split('.').length !== 3) {
                 throw new Error('Signin did not return a valid JWT token. Response: ' + (raw || '').slice(0, 200));
             }
 
             this.token = token;
 
-            // Decode token to get user ID (try common claim names)
+            // Decode token
             const decoded = this.decodeToken(this.token);
             if (decoded) {
                 this.userId = decoded.sub || decoded.user_id || decoded.uid || decoded.id || null;
@@ -106,7 +101,7 @@ const Auth = {
         return !!this.token;
     },
 
-    // Get auth header for requests; throws if no token
+    // Get auth header
     getAuthHeader() {
         if (!this.token) throw new Error('No JWT token available');
         return {
@@ -116,7 +111,7 @@ const Auth = {
     }
 };
 
-// Initialize userId from stored token if possible
+// Initialize userId from stored token in localStorage
 if (Auth.token && !Auth.userId) {
     const decoded = Auth.decodeToken(Auth.token);
     if (decoded) {
